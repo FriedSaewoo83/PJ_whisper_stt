@@ -3,6 +3,7 @@ from openai import OpenAI
 from dotenv import load_dotenv, find_dotenv
 import os
 import requests
+import uvicorn
 
 app = FastAPI()
 
@@ -10,7 +11,7 @@ app = FastAPI()
 _ = load_dotenv(find_dotenv())
 
 # Whisper STT 실행
-client = OpenAI()
+client = OpenAI(api_key="")
 
 @app.get("/")
 async def root():
@@ -67,8 +68,8 @@ async def stt_clova(file:UploadFile):
     file = open(f"save/{file.filename}", "rb")
 
     # NAVER CLOVA API KEY 설정
-    client_id = os.getenv("client_id")
-    client_secret = os.getenv("client_secret")
+    client_id = ""
+    client_secret = ""
 
     # TEXT 변환 언어 설정
     lang = "Kor" # 언어 코드 ( Kor, Jpn, Eng, Chn )
@@ -93,3 +94,7 @@ async def stt_clova(file:UploadFile):
 
     return {"status_code" : 200,
             "STT" : response.text}
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
