@@ -15,7 +15,7 @@ _=load_dotenv(find_dotenv())  # .env 불러오기
 client_id = os.getenv("client_id")
 client_secret = os.getenv("client_secret")
 lang = "Kor" # 언어 코드 ( Kor, Jpn, Eng, Chn )
-#
+# url에서 ?의미 -> 뭐리스트링(데이터)
 url = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=" + lang
 data = open('data/tts_audio.mp3', 'rb')
 headers = {
